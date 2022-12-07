@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bulletin board</title>
+</head>
+
+<body>
+  <h1>Bulletin board</h1>
+  <h2>Categories</h2>
+  <ul>
+    {% for cat in category_list %}
+    <li><a href="/bulletin_board/category/{{cat.id}}">{{ cat.name }}</li></a>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>

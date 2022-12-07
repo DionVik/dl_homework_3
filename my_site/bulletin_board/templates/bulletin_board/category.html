@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Category</title>
+</head>
+
+<body>
+  <h1>Bulletin board</h1>
+  <h2>{{ category_item.name }}</h2>
+  {% if ad_list %}
+  <ul>
+    {% for ad in ad_list %}
+    <li>{{ ad.title }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No advertisments</p>
+  {% endif %}
+</body>
+
+</html>

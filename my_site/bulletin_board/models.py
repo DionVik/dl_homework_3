@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 #def picture_path(instance, file):
@@ -9,7 +10,7 @@ from django.db import models
     #user_id = instance.id
     #return 'picture/user-{}/{}'.format(user_id, file)
 
-class User_profile(models.Model):
+class UserProfile(models.Model):
     name = models.CharField(max_length = 20)
     last_name = models.CharField(max_length = 25)
     email = models.EmailField()
@@ -28,11 +29,12 @@ class Category(models.Model):
         return f'{self.name}'    
     
 class Advertisment(models.Model):
-    user = models.ForeignKey(User_profile, on_delete = models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.SET_DEFAULT, default = None)
     title = models.CharField(max_length = 100)
     content = models.TextField(max_length = 500)
     picture = models.ImageField(upload_to='pictures/', blank=True, null=True)
+    publication_date  = models.DateField(default = timezone.now)
     
     def __str__(self):
         return f'{self.user} {self.title}'    
