@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'bulletin_board/base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>Category</title>
-</head>
+{% block title %} Category {% endblock title %}
 
-<body>
-  <h1>Bulletin board</h1>
-  <h2>{{ category_item.name }}</h2>
+{% block content %}
+<h2>{{ category_item.name }}</h2>
+<a href="/bulletin_board/filter">Filter</a>
   {% if ad_list %}
   <ul>
     {% for ad in ad_list %}
-    <li>{{ ad.title }}</li>
+    <li><a href = "/bulletin_board/ad/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a></li>
     {% endfor %}
   </ul>
   {% else %}
   <p>No advertisments</p>
   {% endif %}
-</body>
+{%endblock content%}
 
-</html>
+

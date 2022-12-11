@@ -1,19 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'bulletin_board/base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>Bulletin board</title>
-</head>
+{% block title %} Bulletin board {% endblock title %}
 
-<body>
-  <h1>Bulletin board</h1>
+{% block content %}
   <h2>Categories</h2>
   <ul>
     {% for cat in category_list %}
-    <li><a href="/bulletin_board/category/{{cat.id}}">{{ cat.name }}</li></a>
+    <li><a href="{% url 'category_id' cat.id %}">{{ cat.name }}</a></li>
     {% endfor %}
   </ul>
-</body>
-
-</html>
+{%endblock content%}

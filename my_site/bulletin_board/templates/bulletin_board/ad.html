@@ -1,0 +1,10 @@
+{% extends 'bulletin_board/base.html' %}
+
+{% block title %} Advertisment {% endblock title %}
+
+{% block content %}
+{% load static %}
+<h2>{{ ad_item.title }}</h2>
+<p>{{ ad_item.content}}</p>
+<img src="{% static ad_item.picture %}">
+{%endblock content%}

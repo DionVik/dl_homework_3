@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^bulletin_board', include('bulletin_board.urls'))
+    re_path(r'^bulletin_board/', include('bulletin_board.urls'))
 ]
 
 if settings.DEBUG:
