@@ -23,6 +23,8 @@ def get_ad_list(request, category_id=1):
 def get_ad(request, ad_id):
     ad_item = Advertisment.objects.get(id=ad_id) #объект объявления с id=ad_id
     context = {'ad_item':ad_item}
+    picture_url = ad_item.picture.url
+    print(picture_url)
     return render(request, 'bulletin_board/ad.html', context)
 
 def get_filter(request):
