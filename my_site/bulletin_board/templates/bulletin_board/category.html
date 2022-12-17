@@ -4,11 +4,11 @@
 
 {% block content %}
 <h2>{{ category_item.name }}</h2>
-<a href="/bulletin_board/filter">Filter</a>
+<a href="/bulletin_board/filter/{{category_item.id}}">Filter</a>
   {% if ad_list %}
   <ul>
     {% for ad in ad_list %}
-    <li><a href = "/bulletin_board/ad/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a></li>
+    <li><a href = "/bulletin_board/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a></li>
     {% endfor %}
   </ul>
   {% else %}

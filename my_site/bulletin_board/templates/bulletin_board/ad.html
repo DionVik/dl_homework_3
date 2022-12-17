@@ -6,5 +6,7 @@
 {% load static %}
 <h2>{{ ad_item.title }}</h2>
 <p>{{ ad_item.content}}</p>
+{% if ad_item.picture %}
 <img src="{{ad_item.picture.url}}">
+{% endif %}
 {%endblock content%}

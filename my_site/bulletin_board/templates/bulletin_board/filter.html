@@ -3,30 +3,11 @@
 {% block title %} Filter {% endblock title %}
 
 {% block content %}
-<!--<form method="POST">
+<form method="GET" action="">
     {% csrf_token %}
     {{ filter_form }}
     <input type="submit" value="Send">
-</form>-->
-<form action="" method='POST'>
-    {% csrf_token %}
-    <fieldset>
-        <legend> Sort by</legend>
-    <p>
-    <label for="date">Date</label>
-<input id="date" type="radio" name="sort_choice" checked value="date">
-        </p>
-    <p>
-    <label for="price">Price</label>
-<input id="price" type="radio" name="sort_choice" value="price">
-    </p>
-        </fieldset>
-    <p>
-        <label for="price_value">Price up to</label>
-        <input type="text" id="price_value" name="price_value">
-    </p>
-
-    <input type="submit" value="Apply">
 </form>
+
 
 {%endblock content%}
