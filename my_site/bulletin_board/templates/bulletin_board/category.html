@@ -8,7 +8,8 @@
   {% if ad_list %}
   <ul>
     {% for ad in ad_list %}
-    <li><a href = "/bulletin_board/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a></li>
+    <li><a href = "/bulletin_board/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}
+    {{ad.price}} {{ad.user.region}} </a></li>
     {% endfor %}
   </ul>
   {% else %}

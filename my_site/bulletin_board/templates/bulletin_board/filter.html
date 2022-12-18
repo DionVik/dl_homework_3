@@ -5,7 +5,7 @@
 {% block content %}
 <form method="GET" action="">
     {% csrf_token %}
-    {{ filter_form }}
+    {{ filter_form.as_p }}
     <input type="submit" value="Send">
 </form>
 
