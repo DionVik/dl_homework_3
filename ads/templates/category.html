@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Category {% endblock title %}
+
+{% block content %}
+<form method="GET" action="">
+    {% csrf_token %}
+    {{ filter_form }}
+    <input type="submit" value="Apply">
+</form>
+
+<h2>{{ category_item.name }}</h2>
+  {% if ad_list %}
+  <ul>
+    {% for ad in ad_list %}
+    <li>
+        <div class="advertisment__conteiner">
+            {% if ad.picture %}
+            <a href = "/bulletin_board/{{ad.id}}"><img src="{{ad.picture.url}}"></a>
+            {% endif %}
+        <a href = "/bulletin_board/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a>
+        <p>Price: {{ad.price}}<p>
+        <p>{{ad.user.region}}</p>
+        </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No advertisments</p>
+  {% endif %}
+ <a href="{% url 'index'%}">Home</a>
+{%endblock content%}

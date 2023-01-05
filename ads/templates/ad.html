@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Advertisment {% endblock title %}
+
+{% block content %}
+<h2>{{ advertisment.title }}</h2>
+<p>{{ advertisment.content}}</p>
+<p>Price: {{advertisment.price}}</p>
+{% if advertisment.picture %}
+<img src="{{advertisment.picture.url}}">
+{% endif %}
+
+<a href="{% url 'message' %}">Send a message</a>
+{%endblock content%}
