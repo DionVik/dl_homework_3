@@ -1,5 +1,5 @@
 from django import forms
-
+from django.core.exceptions import ValidationError
 
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
@@ -19,3 +19,9 @@ class FilterForm(forms.Form):
                                           initial=10000000)
     region_choice = forms.ChoiceField(label='Search in region',
                                       choices=CITIES)
+
+    def clean_max_price_choice(self):
+        price = self.cleaned_data['max_price_choice']
+        if price < 0:
+            raise ValidationError('Invalid price')
+        return price

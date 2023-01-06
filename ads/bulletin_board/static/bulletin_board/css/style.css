@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1E0606;
+  background-color:#bbb;
+}
+
+a {
+  color: #000;
+}
+
+a:hover{
+color: #f00;
+}
+
+.title
+{
+color: yellow;
+}

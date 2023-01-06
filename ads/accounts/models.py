@@ -9,10 +9,17 @@ class CustomUser(AbstractUser):
         ('tlt', 'Togliatti'),
         ('eka', 'Ekaterinburg')
     ]
-    region = models.CharField(max_length=35, choices=CITIES)
-    phone = models.CharField(max_length=11)
-    birth_date = models.DateField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    region = models.CharField(max_length=35, choices=CITIES,
+                              help_text="Required",
+                              verbose_name="Region")
+    phone = models.CharField(max_length=11, verbose_name="Phone",
+                             blank=True, null=True,
+                             help_text="Not required")
+    birth_date = models.DateField(blank=True, null=True,
+                                  help_text="Not required",
+                                  verbose_name="Birth date")
+    avatar = models.ImageField(upload_to='avatars/', blank=True,
+                               null=True, help_text="Not required")
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
