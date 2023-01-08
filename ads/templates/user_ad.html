@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} User`s ads {% endblock title %}
+
+{% block content %}
+  <h2>Advertisements of {{user.first_name}}</h2>
+  {% if ad_list %}
+  <ul>
+    {% for ad in ad_list %}
+    <li>
+      <p>{{ ad.title }}</p>
+      <a href="">Edit</a>
+      <a href="">Delete</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>You don't have any advertisements</p>
+  {% endif %}
+
+
+
+{% endblock content %}

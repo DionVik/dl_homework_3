@@ -5,10 +5,14 @@
 {% block content %}
 <h1>Sign up</h1>
 
+{% if user.is_authenticated %}
+<p>You are already loged in. If you want to sign up you need to log out at first.</p>
+{% else %}
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Sign up">
 </form>
+{% endif %}
 
 {%endblock content%}

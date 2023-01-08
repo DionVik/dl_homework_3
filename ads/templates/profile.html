@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+<h2> Profile of {{ object.first_name }} {{ object.last_name}}</h2>
+<p>Name: {{ object.first_name }} </p>
+<p>Last name: {{ object.last_name }}</p>
+<p> Region: {{ object.region }}</p>
+<p> Email: {{object.email}}</p>
+<p> Birth date: {{ object.birth_date|date:"d F Y"}}</p>
+
+{% if object.avatar %}
+
+<p>Avatar: <img src="{{object.avatar.url}}"> </p>
+
+{% endif %}
+
+{% if object.id == user.id %}
+<p><a href="#">Edit profile</a></p>
+<p><a href="#">Delete profile</a></p>
+
+<p><a href="#">My advertisements</a></p>
+
+
+{% endif %}
+
+
+{%endblock content%}

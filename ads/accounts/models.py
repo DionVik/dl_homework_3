@@ -5,9 +5,9 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     CITIES = [
-        ('msc', 'Moscow'),
-        ('tlt', 'Togliatti'),
-        ('eka', 'Ekaterinburg')
+        ('Moscow', 'Moscow'),
+        ('Togliatti', 'Togliatti'),
+        ('Ekaterinburg', 'Ekaterinburg')
     ]
     region = models.CharField(max_length=35, choices=CITIES,
                               help_text="Required",

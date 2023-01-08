@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from accounts.models import CustomUser
 # Create your views here.
 
 
@@ -15,6 +16,7 @@ class IndexView(ListView):
     model = Category
     template_name = 'index.html'
     context_object_name = "category_list"
+    # в шаблоне можно получить список object_list ИЛИ category_list (если обобщить, то "the_model_name_list
 
 
 def get_ad_list(request, category_id=1):
@@ -90,3 +92,12 @@ class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
+
+
+# def user_ad_list(request):
+#     current_user = request.user
+#     ad_list = current_user.author.all()
+#     context = {'ad_list': ad_list}
+#     return render(request, 'user_ad.html', context)
+
+

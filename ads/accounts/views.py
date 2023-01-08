@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .forms import CustomUserCreationForm
+from .models import CustomUser
+from bulletin_board.models import Advertisement
 
 # Create your views here.
-
-
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -22,7 +22,14 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-# class SignUpView(CreateView):
-#     form_class = CustomUserCreationForm
-#     success_url = reverse_lazy('login')
-#     template_name = 'registration/signup.html'
+class ProfileDetailView(DetailView):
+    model = CustomUser
+    template_name = "profile.html"
+
+
+def user_ad_list(request, pk):
+    current_user = CustomUser.objects.get(id=pk)
+    ad_list_user = current_user.author.all()
+    context = {'ad_list': ad_list_user}
+    return render(request, 'user_ad.html', context)
+
