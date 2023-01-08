@@ -1,20 +1,24 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from .models import Category, Advertisement
-from django.http import Http404
-from .forms import FilterForm
-from django.views.generic import ListView, DetailView, CreateView
-from django.urls import reverse_lazy
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from .forms import FilterForm, AdCreationForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy, reverse
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 class IndexView(ListView):
     model = Category
     template_name = 'index.html'
+    context_object_name = "category_list"
 
 
 def get_ad_list(request, category_id=1):
     try:
-
         category_item = Category.objects.get(id=category_id) #объект категории с id=category_id
         ad_list = Advertisement.objects.filter(category=category_item).order_by('publication_date')
         if request.GET:
@@ -25,7 +29,7 @@ def get_ad_list(request, category_id=1):
                 region = filter_form.cleaned_data['region_choice']  #выбранный регион
                 ad_list = ad_list.filter(price__lte=max_price)  # не больше макс.цены
                 if region != 'all':  #если не по всем регионам
-                    ad_list = ad_list.filter(user__region=region) #выдать объявления в регионе
+                    ad_list = ad_list.filter(author__region=region) #выдать объявления в регионе
                 if sort_type == 'date':
                     ad_list = ad_list.order_by('publication_date')
                 elif sort_type == 'price':
@@ -43,3 +47,46 @@ def get_ad_list(request, category_id=1):
 class AdDetailView(DetailView):
     model = Advertisement
     template_name = 'ad.html'
+    # внутри шаблона можно получить доступ к полям модели
+    # при помощи переменной с именем object или advertisement (обобщённо "the_model_name")
+
+@login_required
+def ad_create(request):
+    if request.method == 'POST':
+        creation_form = AdCreationForm(request.POST, request.FILES)
+        if creation_form.is_valid():
+            ad = creation_form.save(commit=False)
+            ad.author = request.user
+            ad.publication_date = timezone.now()
+            ad.save()
+            pk = ad.id
+        return HttpResponseRedirect(reverse("ad", args=(pk,)))
+    else:
+        creation_form = AdCreationForm()
+    context = {'form': creation_form}
+    return render(request, 'ad_creation.html', context)
+
+
+class AdEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Advertisement
+    template_name = 'ad_edit.html'
+    fields = ['category', 'title', 'content', 'picture', 'price']
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+    # def dispatch(self, request, *args, **kwargs):
+    #     obj = self.get_object()
+    #     if obj.author != request.user:
+    #         raise PermissionDenied('You are not an owner of this ad')
+    #     return super(AdEditView, self).dispatch(request, *args, **kwargs)
+
+
+class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Advertisement
+    template_name = 'ad_delete.html'
+    success_url = reverse_lazy('index')
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user

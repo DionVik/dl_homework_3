@@ -4,12 +4,19 @@
 
 {% block content %}
 <h2>{{ advertisement.title }}</h2>
-<p> {{advertisement.user}}</p>
+<p> {{advertisement.author}}</p>
 <p> {{advertisement.publication_date}}</p>
 <p>{{ advertisement.content}}</p>
 <p>Price: {{advertisement.price}}</p>
 {% if advertisement.picture %}
 <img src="{{advertisement.picture.url}}">
+{% endif %}
+
+{% if advertisement.author == user %}
+<p>
+<a href="{% url 'ad_edit' advertisement.id %}">Edit</a>
+<a href="{% url 'ad_delete' advertisement.id %}">Delete</a>
+</p>
 {% endif %}
 
 {%endblock content%}

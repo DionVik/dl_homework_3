@@ -18,9 +18,10 @@
             {% if ad.picture %}
             <a href = "/bulletin_board/{{ad.id}}"><img src="{{ad.picture.url}}"></a>
             {% endif %}
-        <a href = "/bulletin_board/{{ad.id}}">{{ad.publication_date}} {{ ad.title }}</a>
+        <a href = "/bulletin_board/{{ad.id}}">{{ ad.title }}</a>
+            <p> {{ad.publication_date}} </p>
         <p>Price: {{ad.price}}<p>
-        <p>{{ad.user.region}}</p>
+        <p>{{ad.author.region}}</p>
         </div>
     </li>
     {% endfor %}
