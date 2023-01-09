@@ -16,11 +16,10 @@
 
 {% endif %}
 
-{% if object.id == user.id %}
-<p><a href="#">Edit profile</a></p>
-<p><a href="#">Delete profile</a></p>
+{% if object.id == user.id  and user.is_authenticated %}
+<p><a href="{% url 'accounts:profile_edit' object.id %} ">Edit profile</a></p>
 
-<p><a href="#">My advertisements</a></p>
+<p><a href="{% url 'accounts:ad_list' %}">Advertisements</a></p>
 
 
 {% endif %}

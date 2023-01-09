@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import  DetailView, UpdateView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from bulletin_board.models import Advertisement
+from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def signup(request):
@@ -22,14 +25,30 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-class ProfileDetailView(DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = CustomUser
     template_name = "profile.html"
 
 
-def user_ad_list(request, pk):
-    current_user = CustomUser.objects.get(id=pk)
-    ad_list_user = current_user.author.all()
-    context = {'ad_list': ad_list_user}
-    return render(request, 'user_ad.html', context)
+def user_ad_list(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        ad_list = current_user.ads.all()
+        context = {'ad_list': ad_list}
+        return render(request, 'user_ad.html', context)
+    else:
+        raise PermissionDenied()
+
+
+class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = CustomUser
+    template_name = 'profile_edit.html'
+    fields = ['first_name', 'last_name', 'email','region', 'phone',
+              'birth_date', 'avatar' ]
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj == self.request.user
+
+
 

@@ -22,6 +22,8 @@
             <p> {{ad.publication_date}} </p>
         <p>Price: {{ad.price}}<p>
         <p>{{ad.author.region}}</p>
+            <p><a href="{% url 'accounts:profile' ad.author.id %}">{{ad.author.first_name}}
+                {{ad.author.last_name}}</a></p>
         </div>
     </li>
     {% endfor %}

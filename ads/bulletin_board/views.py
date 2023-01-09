@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from .models import Category, Advertisement
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -92,12 +91,5 @@ class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
-
-
-# def user_ad_list(request):
-#     current_user = request.user
-#     ad_list = current_user.author.all()
-#     context = {'ad_list': ad_list}
-#     return render(request, 'user_ad.html', context)
 
 

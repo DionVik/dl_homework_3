@@ -4,20 +4,18 @@
 
 {% block content %}
   <h2>Advertisements of {{user.first_name}}</h2>
-  {% if ad_list %}
+{% if ad_list %}
   <ul>
     {% for ad in ad_list %}
     <li>
-      <p>{{ ad.title }}</p>
-      <a href="">Edit</a>
-      <a href="">Delete</a>
+      <p><a href="{% url 'ad' ad.id %}">{{ ad.title }}</a></p>
+      <a href="{% url 'ad_edit' ad.id %}">Edit</a>
+      <a href="{% url 'ad_delete' ad.id %}">Delete</a>
     </li>
     {% endfor %}
   </ul>
   {% else %}
   <p>You don't have any advertisements</p>
   {% endif %}
-
-
 
 {% endblock content %}

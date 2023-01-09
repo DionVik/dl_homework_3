@@ -32,9 +32,9 @@ class AdCreationForm(forms.ModelForm):
         model = Advertisement
         fields = ['category', 'title', 'content', 'picture', 'price']
         labels = {
-            'category': 'Category of advertisement',
-            'title': 'Title of advertisement',
-            'content': 'Content of advertisement',
+            'category': 'Category',
+            'title': 'Title',
+            'content': 'Content',
             'picture': 'Picture',
             'price': 'Price, rub'
         }
