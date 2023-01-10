@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 from accounts.models import CustomUser
 
@@ -30,7 +31,7 @@ class Advertisement(models.Model):
 
 
 class Message(models.Model):
-    author = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
     target_ad = models.ForeignKey(Advertisement, on_delete=models.DO_NOTHING)
     publication_date = models.DateField(default=timezone.now, verbose_name="Date of publication")
     text = models.TextField(max_length=300)

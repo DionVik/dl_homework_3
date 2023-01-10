@@ -12,6 +12,8 @@
 <img src="{{advertisement.picture.url}}">
 {% endif %}
 
+<a href="{% url 'message_create' advertisement.id %}">Send message</a>
+
 {% if advertisement.author == user %}
 <p>
 <a href="{% url 'ad_edit' advertisement.id %}">Edit</a>

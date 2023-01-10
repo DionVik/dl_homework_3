@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
-from .models import Category, Advertisement
+from .models import Category, Advertisement, Message
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from .forms import FilterForm, AdCreationForm
+from .forms import FilterForm, AdCreateForm, MessageCreateForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -54,16 +54,16 @@ class AdDetailView(DetailView):
 @login_required
 def ad_create(request):
     if request.method == 'POST':
-        creation_form = AdCreationForm(request.POST, request.FILES)
+        creation_form = AdCreateForm(request.POST, request.FILES)
         if creation_form.is_valid():
             ad = creation_form.save(commit=False)
             ad.author = request.user
             ad.publication_date = timezone.now()
             ad.save()
             pk = ad.id
-        return HttpResponseRedirect(reverse("ad", args=(pk,)))
+            return HttpResponseRedirect(reverse("ad", args=(pk,)))
     else:
-        creation_form = AdCreationForm()
+        creation_form = AdCreateForm()
     context = {'form': creation_form}
     return render(request, 'ad_creation.html', context)
 
@@ -91,5 +91,25 @@ class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
+
+@login_required
+def  message_create(request, ad_id):
+    target_ad = Advertisement.objects.get(id=ad_id)
+    if request.method == "POST":
+        message_create_form = MessageCreateForm(request.POST)
+        if message_create_form.is_valid():
+            message = message_create_form.save(commit=False)
+            message.author = request.user
+            message.publication_date = timezone.now()
+            message.target_ad = target_ad
+            message.save()
+            pk = ad_id
+            return HttpResponseRedirect(reverse("ad", args=(pk,)))
+    else:
+        message_create_form = MessageCreateForm()
+    context = {'form': message_create_form, 'target_ad': target_ad }
+    return render(request, 'message_create.html', context)
+
+
 
 
