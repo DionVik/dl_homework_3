@@ -110,6 +110,12 @@ def  message_create(request, ad_id):
     context = {'form': message_create_form, 'target_ad': target_ad }
     return render(request, 'message_create.html', context)
 
+@login_required
+def ad_messages(request, ad_id):
+    ad = Advertisement.objects.get(id=ad_id)
+    messages = ad.messages.all()
+    context = {'ad': ad, 'messages': messages}
+    return render(request, 'ad_messages.html', context)
 
 
 

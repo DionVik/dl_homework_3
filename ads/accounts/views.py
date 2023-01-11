@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import  DetailView, UpdateView
+from django.views.generic import  DetailView, UpdateView, ListView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from bulletin_board.models import Advertisement
@@ -30,6 +30,8 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     template_name = "profile.html"
 
 
+
+
 def user_ad_list(request):
     if request.user.is_authenticated:
         current_user = request.user
@@ -49,6 +51,12 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return obj == self.request.user
+
+
+
+
+
+
 
 
 

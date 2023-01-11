@@ -32,7 +32,7 @@ class Advertisement(models.Model):
 
 class Message(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
-    target_ad = models.ForeignKey(Advertisement, on_delete=models.DO_NOTHING)
+    target_ad = models.ForeignKey(Advertisement, on_delete=models.DO_NOTHING, related_name="messages")
     publication_date = models.DateField(default=timezone.now, verbose_name="Date of publication")
     text = models.TextField(max_length=300)
 

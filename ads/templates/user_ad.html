@@ -11,6 +11,7 @@
       <p><a href="{% url 'ad' ad.id %}">{{ ad.title }}</a></p>
       <a href="{% url 'ad_edit' ad.id %}">Edit</a>
       <a href="{% url 'ad_delete' ad.id %}">Delete</a>
+      <a href="{% url 'messages' ad.id %}">Show messages</a>
     </li>
     {% endfor %}
   </ul>
