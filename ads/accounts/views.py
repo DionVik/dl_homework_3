@@ -1,13 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.views.generic import  DetailView, UpdateView, ListView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
-from bulletin_board.models import Advertisement
-from django.core.exceptions import PermissionDenied
 
 # Create your views here.
 def signup(request):
@@ -32,14 +28,14 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
 
 
-def user_ad_list(request):
-    if request.user.is_authenticated:
-        current_user = request.user
-        ad_list = current_user.ads.all()
-        context = {'ad_list': ad_list}
-        return render(request, 'user_ad.html', context)
-    else:
-        raise PermissionDenied()
+# def user_ad_list(request):
+#     if request.user.is_authenticated:
+#         current_user = request.user
+#         ad_list = current_user.ads.all()
+#         context = {'ad_list': ad_list}
+#         return render(request, 'user_ad.html', context)
+#     else:
+#         raise PermissionDenied()
 
 
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

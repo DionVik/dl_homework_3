@@ -10,5 +10,6 @@ urlpatterns = [
     re_path(r'^(?P<pk>\d+)/edit/?$',AdEditView.as_view(), name='ad_edit'),
     re_path(r'^(?P<pk>\d+)/delete/?$', AdDeleteView.as_view(), name='ad_delete'),
     re_path(r'^(?P<ad_id>\d+)/message$', views.message_create, name='message_create'),
-    re_path(r'^(?P<ad_id>\d+)/message_list$', views.ad_messages, name='messages')
+    re_path(r'^(?P<ad_id>\d+)/message_list$', views.ad_messages, name='messages'),
+    re_path(r'^ad_list/*$', views.user_ad_list, name='ad_list'),
 ]
