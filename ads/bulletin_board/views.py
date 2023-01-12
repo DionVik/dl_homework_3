@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from .models import Category, Advertisement, Message
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -113,9 +114,12 @@ def  message_create(request, ad_id):
 @login_required
 def ad_messages(request, ad_id):
     ad = Advertisement.objects.get(id=ad_id)
-    messages = ad.messages.all()
-    context = {'ad': ad, 'messages': messages}
-    return render(request, 'ad_messages.html', context)
+    if ad.author == request.user:
+        messages = ad.messages.all()
+        context = {'ad': ad, 'messages': messages}
+        return render(request, 'ad_messages.html', context)
+    else:
+        raise PermissionDenied()
 
 
 
