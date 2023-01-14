@@ -11,13 +11,12 @@
 <p> Birth date: {{ object.birth_date|date:"d F Y"}}</p>
 
 {% if object.avatar %}
-
-<p>Avatar: <img src="{{object.avatar.url}}"> </p>
-
+<p>Avatar: <img class="profile__avatar" src="{{object.avatar.url}}"> </p>
 {% endif %}
+<a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a>
 
 {% if object.id == user.id  and user.is_authenticated %}
-<p><a href="{% url 'accounts:profile_edit' object.id %} ">Edit profile</a></p>
+<p ><a class="button" href="{% url 'accounts:profile_edit' object.id %} ">Edit profile</a></p>
 <p><a href="{% url 'ad_list' %}">Advertisements</a></p>
 
 {% endif %}

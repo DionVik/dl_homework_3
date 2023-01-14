@@ -9,14 +9,14 @@
     {% for ad in ad_list %}
     <li>
       <p><a href="{% url 'ad' ad.id %}">{{ ad.title }}</a></p>
-      <a href="{% url 'ad_edit' ad.id %}">Edit</a>
-      <a href="{% url 'ad_delete' ad.id %}">Delete</a>
-<!--      <a href="{% url 'messages' ad.id %}">Show messages</a>-->
+      <a class="button" href="{% url 'ad_edit' ad.id %}">Edit</a>
+      <a class="button" href="{% url 'ad_delete' ad.id %}">Delete</a>
     </li>
     {% endfor %}
   </ul>
   {% else %}
   <p>You don't have any advertisements</p>
   {% endif %}
+<p><a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 
 {% endblock content %}

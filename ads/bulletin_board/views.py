@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from .models import Category, Advertisement #, Message
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from .forms import FilterForm, AdCreateForm #, MessageCreateForm
+from .models import Category, Advertisement
+from django.http import Http404, HttpResponseRedirect
+from .forms import FilterForm, AdCreateForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -30,7 +30,7 @@ def get_ad_list(request, category_id=1):
                 max_price = filter_form.cleaned_data['max_price_choice'] #выбранная макс.цена
                 region = filter_form.cleaned_data['region_choice']  #выбранный регион
                 ad_list = ad_list.filter(price__lte=max_price)  # не больше макс.цены
-                if region != 'all':  #если не по всем регионам
+                if region != 'All':  #если не по всем регионам
                     ad_list = ad_list.filter(author__region=region) #выдать объявления в регионе
                 if sort_type == 'date':
                     ad_list = ad_list.order_by('publication_date')
@@ -77,11 +77,7 @@ class AdEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
-    # def dispatch(self, request, *args, **kwargs):
-    #     obj = self.get_object()
-    #     if obj.author != request.user:
-    #         raise PermissionDenied('You are not an owner of this ad')
-    #     return super(AdEditView, self).dispatch(request, *args, **kwargs)
+
 
 
 class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -92,34 +88,6 @@ class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
-
-# @login_required
-# def  message_create(request, ad_id):
-#     target_ad = Advertisement.objects.get(id=ad_id)
-#     if request.method == "POST":
-#         message_create_form = MessageCreateForm(request.POST)
-#         if message_create_form.is_valid():
-#             message = message_create_form.save(commit=False)
-#             message.author = request.user
-#             message.publication_date = timezone.now()
-#             message.target_ad = target_ad
-#             message.save()
-#             pk = ad_id
-#             return HttpResponseRedirect(reverse("ad", args=(pk,)))
-#     else:
-#         message_create_form = MessageCreateForm()
-#     context = {'form': message_create_form, 'target_ad': target_ad }
-#     return render(request, 'message_create.html', context)
-
-# @login_required
-# def ad_messages(request, ad_id):
-#     ad = Advertisement.objects.get(id=ad_id)
-#     if ad.author == request.user:
-#         messages = ad.messages.all()
-#         context = {'ad': ad, 'messages': messages}
-#         return render(request, 'ad_messages.html', context)
-#     else:
-#         raise PermissionDenied()
 
 
 def user_ad_list(request):

@@ -4,20 +4,27 @@
 
 {% block content %}
 <h2>{{ advertisement.title }}</h2>
-<p> {{advertisement.author}}</p>
-<p> {{advertisement.publication_date}}</p>
-<p>{{ advertisement.content}}</p>
-<p>Price: {{advertisement.price}}</p>
-{% if advertisement.picture %}
-<img src="{{advertisement.picture.url}}">
-{% endif %}
+<div class="ad__item_wrapper">
 
-<!--<a href="{% url 'message_create' advertisement.id %}">Send message</a>-->
+    <img class="ad__item_picture" src="{{advertisement.picture.url}}">
+
+    <div class="ad__item_info">
+<p> {{advertisement.publication_date|date:"d F Y"}}</p>
+<p>{{ advertisement.content}}</p>
+<p>Price: {{advertisement.price}} rub.</p>
+        <p><a href="{% url 'accounts:profile' advertisement.author.id %}">{{advertisement.author}} </a>
+            Phone: {{advertisement.author.phone}} </p>
+    </div>
+
+</div>
+<a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a>
+
+
 
 {% if advertisement.author == user %}
 <p>
-<a href="{% url 'ad_edit' advertisement.id %}">Edit</a>
-<a href="{% url 'ad_delete' advertisement.id %}">Delete</a>
+<a class="button" href="{% url 'ad_edit' advertisement.id %}">Edit</a>
+<a  class="button" href="{% url 'ad_delete' advertisement.id %}">Delete</a>
 </p>
 {% endif %}
 

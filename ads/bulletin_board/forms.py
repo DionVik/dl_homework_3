@@ -1,15 +1,15 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Advertisement#, Message
+from .models import Advertisement
 
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
     CITIES = [
-        ('all', 'All'),
-        ('msc', 'Moscow'),
-        ('tlt', 'Togliatti'),
-        ('spb', 'Sankt Petersburg'),
-        ('eka', 'Ekaterinburg')
+        ('All', 'All'),
+        ('Moscow', 'Moscow'),
+        ('Togliatti', 'Togliatti'),
+        ('Saint Petersburg', 'Saint Petersburg'),
+        ('Ekaterinburg', 'Ekaterinburg')
     ]
     sort_type_choice = forms.ChoiceField(label="Sort by",
                                  widget=forms.RadioSelect,
@@ -46,8 +46,3 @@ class AdCreateForm(forms.ModelForm):
             return data
 
 
-# class MessageCreateForm(forms.ModelForm):
-#     class Meta:
-#         model = Message
-#         fields = ['text']
-#         widgets = {'text': forms.Textarea()}

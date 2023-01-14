@@ -4,12 +4,13 @@
 
 {% block content %}
 
-<h1>Profiel edit</h1>
+<h1>Profile edit</h1>
 
 <form method="POST" action=""  enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input class="button" type="submit" value="Update">
+    <p><a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a></p>
 </form>
 
 

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import Category
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 class IndexViewTest(TestCase):
 
@@ -18,3 +19,4 @@ class IndexViewTest(TestCase):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
+

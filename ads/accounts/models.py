@@ -8,14 +8,14 @@ class CustomUser(AbstractUser):
     CITIES = [
         ('Moscow', 'Moscow'),
         ('Togliatti', 'Togliatti'),
+        ('Saint Petersburg', 'Saint Petersburg'),
         ('Ekaterinburg', 'Ekaterinburg')
     ]
     region = models.CharField(max_length=35, choices=CITIES,
                               help_text="Required",
                               verbose_name="Region")
     phone = models.CharField(max_length=11, verbose_name="Phone",
-                             blank=True, null=True,
-                             help_text="Not required")
+                             help_text="Required", default="-")
     birth_date = models.DateField(blank=True, null=True,
                                   help_text="Not required",
                                   verbose_name="Birth date")

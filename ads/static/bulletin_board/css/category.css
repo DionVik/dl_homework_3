@@ -1,0 +1,21 @@
+.form__filter_wrapper{
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  background-color:#ddd
+  padding: 0 5px 0 5px;
+  }
+
+ .ad__item_wrapper{
+ display: flex;
+  align-items:center
+  margin-bottom:10px;
+ }
+
+ .ad__item_picture{
+    width:200px;
+ }
+
+ .ad__item_info{
+ margin-left:10px;
+ }
