@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from .models import Category, Advertisement, Message
+from .models import Category, Advertisement #, Message
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from .forms import FilterForm, AdCreateForm, MessageCreateForm
+from .forms import FilterForm, AdCreateForm #, MessageCreateForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -93,33 +93,33 @@ class AdDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return obj.author == self.request.user
 
-@login_required
-def  message_create(request, ad_id):
-    target_ad = Advertisement.objects.get(id=ad_id)
-    if request.method == "POST":
-        message_create_form = MessageCreateForm(request.POST)
-        if message_create_form.is_valid():
-            message = message_create_form.save(commit=False)
-            message.author = request.user
-            message.publication_date = timezone.now()
-            message.target_ad = target_ad
-            message.save()
-            pk = ad_id
-            return HttpResponseRedirect(reverse("ad", args=(pk,)))
-    else:
-        message_create_form = MessageCreateForm()
-    context = {'form': message_create_form, 'target_ad': target_ad }
-    return render(request, 'message_create.html', context)
+# @login_required
+# def  message_create(request, ad_id):
+#     target_ad = Advertisement.objects.get(id=ad_id)
+#     if request.method == "POST":
+#         message_create_form = MessageCreateForm(request.POST)
+#         if message_create_form.is_valid():
+#             message = message_create_form.save(commit=False)
+#             message.author = request.user
+#             message.publication_date = timezone.now()
+#             message.target_ad = target_ad
+#             message.save()
+#             pk = ad_id
+#             return HttpResponseRedirect(reverse("ad", args=(pk,)))
+#     else:
+#         message_create_form = MessageCreateForm()
+#     context = {'form': message_create_form, 'target_ad': target_ad }
+#     return render(request, 'message_create.html', context)
 
-@login_required
-def ad_messages(request, ad_id):
-    ad = Advertisement.objects.get(id=ad_id)
-    if ad.author == request.user:
-        messages = ad.messages.all()
-        context = {'ad': ad, 'messages': messages}
-        return render(request, 'ad_messages.html', context)
-    else:
-        raise PermissionDenied()
+# @login_required
+# def ad_messages(request, ad_id):
+#     ad = Advertisement.objects.get(id=ad_id)
+#     if ad.author == request.user:
+#         messages = ad.messages.all()
+#         context = {'ad': ad, 'messages': messages}
+#         return render(request, 'ad_messages.html', context)
+#     else:
+#         raise PermissionDenied()
 
 
 def user_ad_list(request):

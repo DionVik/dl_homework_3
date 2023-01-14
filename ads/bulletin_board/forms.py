@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Advertisement, Message
+from .models import Advertisement#, Message
 
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
@@ -46,8 +46,8 @@ class AdCreateForm(forms.ModelForm):
             return data
 
 
-class MessageCreateForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['text']
-        widgets = {'text': forms.Textarea()}
+# class MessageCreateForm(forms.ModelForm):
+#     class Meta:
+#         model = Message
+#         fields = ['text']
+#         widgets = {'text': forms.Textarea()}
