@@ -53,3 +53,19 @@ class AdvertisementModelTest(TestCase):
         ad_item = Advertisement.objects.get(id=1)
         expected_ad_price = f'{ad_item.price}'
         self.assertEqual(expected_ad_price, '50.00')
+
+    def test_string_Ad(self):
+        ad_item = Advertisement.objects.get(id=1)
+        expected_string = f'{ad_item.author} {ad_item.title}'
+        self.assertEqual(expected_string, str(ad_item))
+
+    def test_string_Ad_2(self):
+        ad_item = Advertisement.objects.get(id=1)
+        expected_string = f'{ad_item.author} {ad_item.title}'
+        self.assertEqual(expected_string, "first_name last_name ad_title")
+
+    def test_get_absolute_url(self):
+        ad_item = Advertisement.objects.get(id=1)
+        expected_url = f'{ad_item.get_absolute_url()}'
+        self.assertEqual(expected_url, "/bulletin_board/1")
+
