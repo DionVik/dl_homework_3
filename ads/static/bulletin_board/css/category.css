@@ -2,13 +2,13 @@
   display: flex;
   justify-content:space-between;
   align-items:center;
-  background-color:#ddd
+  background-color:#ddd;
   padding: 0 5px 0 5px;
   }
 
  .ad__item_wrapper{
  display: flex;
-  align-items:center
+  align-items:center;
   margin-bottom:10px;
  }
 

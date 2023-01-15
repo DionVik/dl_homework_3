@@ -39,14 +39,21 @@ def get_ad_list(request, category_id=1):
                 choice_data = {'sort_type_choice': sort_type, 'max_price_choice': max_price, 'region_choice': region}
                 filter_form = FilterForm(choice_data)
         else:
-            region = request.user.region
-            print(region)
-            ad_list = ad_list.filter(author__region=region)
+            if request.user.is_authenticated:
+                region = request.user.region
+                print(region)
+            else:
+                region = 'All'
+                print (region)
+            if region != 'All':  # если не по всем регионам
+                ad_list = ad_list.filter(author__region=region)  # выдать объявления в регионе
+            else:
+                ad_list = Advertisement.objects.filter(category=category_item).order_by('publication_date')
             choice_data = {'sort_type_choice': 'date', 'max_price_choice': 10000000, 'region_choice': region}
             filter_form = FilterForm(choice_data)
-            context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list, 'region':region}
+            context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list, 'region': region}
             return render(request, 'category.html', context)
-        context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list, 'region':region}
+        context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list, 'region': region}
     except Category.DoesNotExist:
         raise Http404(f'Category {category_id} does not exist')
     return render(request, 'category.html', context)
