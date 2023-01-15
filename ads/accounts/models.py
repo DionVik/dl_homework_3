@@ -16,9 +16,9 @@ class CustomUser(AbstractUser):
                               verbose_name="Region")
     phone = models.CharField(max_length=11, verbose_name="Phone",
                              help_text="Required", default="-")
-    birth_date = models.DateField(blank=True, null=True,
-                                  help_text="Not required",
-                                  verbose_name="Birth date")
+    # birth_date = models.DateField(blank=True, null=True,
+    #                               help_text="Not required",
+    #                               verbose_name="Birth date")
     avatar = models.ImageField(upload_to='avatars/', blank=True,
                                null=True, help_text="Not required")
 
