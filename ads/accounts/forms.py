@@ -11,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
                                  #input_formats=settings.DATE_INPUT_FORMATS)
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'region', 'email', 'avatar')
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'region', 'email', 'phone','avatar')
 
 
 class CustomUserChangeForm(UserChangeForm):
