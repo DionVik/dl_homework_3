@@ -10,7 +10,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input class="button" type="submit" value="Update">
-    <p><a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a></p>
+    <p><a class="button" href = "{% url 'accounts:profile' user.id %}"> Cancel </a></p>
 </form>
 
 
