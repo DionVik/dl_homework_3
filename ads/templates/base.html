@@ -11,12 +11,17 @@
     <link rel="stylesheet"  type="text/css" href=" {% static 'bulletin_board/css/category.css' %} ">
      <link rel="stylesheet"  type="text/css" href=" {% static 'accounts/css/category.css' %} ">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quintessential&family=Roboto&display=swap" rel="stylesheet">
+
+
     <title >{% block title %} Document {% endblock title %} </title>
 </head>
 <body>
     {% block header %}
     <header class="header wrapper">
-        <div class="header__logo"><a href="{% url 'index' %}"><img src="{% static 'bulletin_board/pics/logo.png' %}" alt="logo"></a></div>
+        <div class="header__logo"><a href="{% url 'index' %}">Bulletin board </a></div>
         <div class="header__user_info">
         {% if user.is_authenticated %}
         <p class="header__user_name">{{user.first_name}} {{user.last_name}}</p>

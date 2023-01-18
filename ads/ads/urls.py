@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    re_path(r'^bulletin_board/', include('bulletin_board.urls')),
+    path('', include('bulletin_board.urls')),
 ]
 
 if settings.DEBUG:

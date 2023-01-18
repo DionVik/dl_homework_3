@@ -13,24 +13,23 @@
         </div>
 </form>
 
-<h2>{{ category_item.name }} in {{ region }}</h2>
+<h2>{{ category_item.name }} in  {{region}} </h2>
   {% if ad_list %}
   <ul>
     {% for ad in ad_list %}
     <li>
         <div class="ad__item_wrapper">
             {% if ad.picture %}
-            <div > <a href = "/bulletin_board/{{ad.id}}"><img  class="ad__item_picture" src="{{ad.picture.url}}"></a> </div>
+            <div > <a href = "{%url 'ad' ad.id %}"><img  class="ad__item_picture" src="{{ad.picture.url}}"></a> </div>
             {% endif %}
             <div class="ad__item_info">
-        <a href = "/bulletin_board/{{ad.id}}">{{ ad.title }}</a>
+        <a href = "{%url 'ad' ad.id %}">{{ ad.title }}</a>
             <p> {{ad.publication_date}} </p>
         <p>Price: {{ad.price}}<p>
         <p>{{ad.author.region}}</p>
             <p><a href="{% url 'accounts:profile' ad.author.id %}">{{ad.author.first_name}}
                 {{ad.author.last_name}}</a> Phone: {{ad.author.phone}} </p>
             </div>
-
         </div>
         <hr>
     </li>
@@ -39,4 +38,27 @@
   {% else %}
   <p>No advertisments</p>
   {% endif %}
+
+{% if ad_list.has_other_pages %}
+<ul class="pagination">
+    {% if ad_list.has_previous %}
+        <li><a href="?page={{ ad_list.previous_page_number }}">previous page</a></li>
+    {% else %}
+        <li class="disabled">previous page</li>
+    {% endif %}
+    {% for item_page in ad_list.paginator.page_range %}
+        {% if ad_list.number == item_page %}
+            <li class="active">{{ item_page }}</li>
+        {% else %}
+            <li><a href="?page={{ item_page }}">{{ item_page }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if ad_list.has_next %}
+        <li><a href="?page={{ ad_list.next_page_number }}">next page</a></li>
+    {% else %}
+        <li class="disabled">previous page</li>
+    {% endif %}
+</ul>
+{% endif %}
+
 {%endblock content%}
