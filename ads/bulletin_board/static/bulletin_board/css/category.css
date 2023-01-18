@@ -19,3 +19,19 @@
  .ad__item_info{
  margin-left:10px;
  }
+
+ .pagination{
+  display: flex;
+  justify-content:center;
+ }
+
+.pagination li{
+margin-left: 10px;
+}
+ .disabled{
+  color: #888;
+ }
+
+ .active{
+  font-weight: 700;
+ }

@@ -12,6 +12,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input class="button" type="submit" value="Sign up">
+     <p><a class="button" href="{% url 'index' %}">Cancel</a></p>
 </form>
 {% endif %}
 

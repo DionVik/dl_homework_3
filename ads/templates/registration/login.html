@@ -2,7 +2,6 @@
 
 {% block title %} Log In{% endblock title %}
 
-{% block header %} {% endblock header %}
 {% block content %}
 
 <h1>Log In</h1>
@@ -15,7 +14,8 @@
 <form method="POST" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Log In">
+    <input class="button" type="submit" value="Log In">
+    <p><a class="button" href="{% url 'index' %}">Cancel</a></p>
 </form>
 
 {%endblock content%}
