@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
     # region = models.CharField(max_length=35, choices=CITIES,
     #                           help_text="Required",
     #                           verbose_name="Region")
-    region = models.ForeignKey(Region, on_delete=models.PROTECT)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, default=None, blank=True, null=True)
     phone = models.CharField(max_length=11, verbose_name="Phone",
                              help_text="Required", default="-")
     # birth_date = models.DateField(blank=True, null=True,

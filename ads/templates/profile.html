@@ -8,7 +8,6 @@
 <p>Last name: {{ object.last_name }}</p>
 <p> Region: {{ object.region }}</p>
 <p> Email: {{object.email}}</p>
-<p> Birth date: {{ object.birth_date|date:"d F Y"}}</p>
 
 {% if object.avatar %}
 <p>Avatar: <img class="profile__avatar" src="{{object.avatar.url}}"> </p>
@@ -17,6 +16,7 @@
 
 {% if object.id == user.id  and user.is_authenticated %}
 <p ><a class="button" href="{% url 'accounts:profile_edit' object.id %} ">Edit profile</a></p>
+<p ><a class="button" href="{% url 'ad_create' %} ">Create new advertisement</a></p>
 <p><a href="{% url 'ad_list' %}">Advertisements</a></p>
 
 {% endif %}

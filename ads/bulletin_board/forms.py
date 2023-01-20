@@ -1,18 +1,26 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Advertisement
+from accounts.models import Region
 
+def get_region_list():
+    region_list = [('All', 'All')]
+    regions = Region.objects.all()
+    for region in regions:
+        item = (region, region)
+        region_list.append(item)
+    return region_list
 
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
-    CITIES = [
-        ('All', 'All'),
-        ('Moscow', 'Moscow'),
-        ('Togliatti', 'Togliatti'),
-        ('Saint Petersburg', 'Saint Petersburg'),
-        ('Ekaterinburg', 'Ekaterinburg')]
+    # CITIES = [
+    #     ('All', 'All'),
+    #     ('Moscow', 'Moscow'),
+    #     ('Togliatti', 'Togliatti'),
+    #     ('Saint Petersburg', 'Saint Petersburg'),
+    #     ('Ekaterinburg', 'Ekaterinburg')]
 
-
+    CITIES = get_region_list()
 
     sort_type_choice = forms.ChoiceField(label="Sort by",
                                  widget=forms.RadioSelect,
@@ -21,7 +29,7 @@ class FilterForm(forms.Form):
 
     max_price_choice = forms.DecimalField(label='Price no more than',
                                           initial=10000000)
-    region_choice = forms.ChoiceField(label='Search in region',
+    region_choice = forms.ChoiceField(label='Search in region', initial='All',
                                       choices=CITIES)
 
     def clean_max_price_choice(self):

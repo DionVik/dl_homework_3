@@ -17,7 +17,7 @@
     </div>
 
 </div>
-<a class="button" href="{% url 'category' advertisement.category.id %}">Back to list</a>
+<a class="button" href="{% url 'category' advertisement.category.id %}">List</a>
 
 
 
@@ -25,6 +25,7 @@
 <p>
 <a class="button" href="{% url 'ad_edit' advertisement.id %}">Edit</a>
 <a  class="button" href="{% url 'ad_delete' advertisement.id %}">Delete</a>
+    <a  class="button" href="{% url 'accounts:profile' advertisement.author.id %}">Profile</a>
 </p>
 {% endif %}
 

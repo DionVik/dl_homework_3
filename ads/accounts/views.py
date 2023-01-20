@@ -42,7 +42,7 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     template_name = 'profile_edit.html'
     fields = ['first_name', 'last_name', 'email','region', 'phone',
-              'birth_date', 'avatar' ]
+               'avatar' ]
 
     def test_func(self):
         obj = self.get_object()
