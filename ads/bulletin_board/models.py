@@ -16,7 +16,7 @@ class Category(models.Model):
 
 class Advertisement(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="ads")
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
     title = models.CharField(max_length=100, verbose_name="Title")
     content = models.TextField(max_length=500, verbose_name="Content")
     picture = models.ImageField(upload_to='pictures/', blank=True, null=True, verbose_name="Picture")

@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from .models import Advertisement
 
+
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
     CITIES = [
@@ -9,8 +10,10 @@ class FilterForm(forms.Form):
         ('Moscow', 'Moscow'),
         ('Togliatti', 'Togliatti'),
         ('Saint Petersburg', 'Saint Petersburg'),
-        ('Ekaterinburg', 'Ekaterinburg')
-    ]
+        ('Ekaterinburg', 'Ekaterinburg')]
+
+
+
     sort_type_choice = forms.ChoiceField(label="Sort by",
                                  widget=forms.RadioSelect,
                                  choices=CHOICES,
