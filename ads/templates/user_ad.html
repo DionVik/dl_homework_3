@@ -12,11 +12,12 @@
       <a class="button" href="{% url 'ad_edit' ad.id %}">Edit</a>
       <a class="button" href="{% url 'ad_delete' ad.id %}">Delete</a>
     </li>
+    <hr>
     {% endfor %}
   </ul>
   {% else %}
   <p>You don't have any advertisements</p>
   {% endif %}
-<p><a class="button" href="{{request.META.HTTP_REFERER}}">Go back</a></p>
+<a  class="button" href="{% url 'accounts:profile' user.id %}">Back to profile</a>
 
 {% endblock content %}

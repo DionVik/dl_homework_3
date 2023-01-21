@@ -26,18 +26,6 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     template_name = "profile.html"
 
 
-
-
-# def user_ad_list(request):
-#     if request.user.is_authenticated:
-#         current_user = request.user
-#         ad_list = current_user.ads.all()
-#         context = {'ad_list': ad_list}
-#         return render(request, 'user_ad.html', context)
-#     else:
-#         raise PermissionDenied()
-
-
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = CustomUser
     template_name = 'profile_edit.html'

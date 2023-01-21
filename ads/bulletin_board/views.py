@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from .models import Category, Advertisement
+from accounts.models import Region
 from django.http import Http404, HttpResponseRedirect
 from .forms import FilterForm, AdCreateForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -36,7 +37,9 @@ def get_ad_list(request, category_id=1):
                 region = filter_form.cleaned_data['region_choice']  #выбранный регион
                 ad_list = ad_list.filter(price__lte=max_price)  # не больше макс.цены
                 if region != 'All':  #если не по всем регионам
-                    ad_list = ad_list.filter(author__region=region) #выдать объявления в регионе
+                    region_object = Region.objects.get(name=region)
+                    print(f'id={region_object.id}')
+                    ad_list = ad_list.filter(author__region=region_object) #выдать объявления в регионе
                 if sort_type == 'date':
                     ad_list = ad_list.order_by('publication_date')
                 elif sort_type == 'price':
@@ -46,7 +49,6 @@ def get_ad_list(request, category_id=1):
             else:
                 print ("filter_form is not valid")
         else:
-            print("We have  GET request without form")
             if region != 'All':  # если не по всем регионам
                 ad_list = ad_list.filter(author__region=region)  # выдать объявления в регионе
             else:

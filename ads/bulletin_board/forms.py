@@ -13,20 +13,11 @@ def get_region_list():
 
 class FilterForm(forms.Form):
     CHOICES = [('date', 'date'), ('price', 'price')]
-    # CITIES = [
-    #     ('All', 'All'),
-    #     ('Moscow', 'Moscow'),
-    #     ('Togliatti', 'Togliatti'),
-    #     ('Saint Petersburg', 'Saint Petersburg'),
-    #     ('Ekaterinburg', 'Ekaterinburg')]
-
     CITIES = get_region_list()
-
     sort_type_choice = forms.ChoiceField(label="Sort by",
                                  widget=forms.RadioSelect,
                                  choices=CHOICES,
                                  initial='date')
-
     max_price_choice = forms.DecimalField(label='Price no more than',
                                           initial=10000000)
     region_choice = forms.ChoiceField(label='Search in region', initial='All',
