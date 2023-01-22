@@ -2,12 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 #from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser, Region
-from bulletin_board.admin import AdvertisementInLine
+# from bulletin_board.admin import AdvertisementInLine
 
 # Register your models here.
 
 
 class CustomUserAdmin(UserAdmin):
+    # inlines = [AdvertisementInLine]
     #add_form = CustomUserCreationForm
     #form = CustomUserChangeForm
     model = CustomUser
@@ -19,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('phone', 'region', 'avatar')}),
     )
-    inlines = [AdvertisementInLine,]
+
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

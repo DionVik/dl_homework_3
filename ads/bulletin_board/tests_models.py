@@ -20,8 +20,7 @@ class AdvertisementModelTest(TestCase):
                                                email='myemail@crazymail.com',
                                                password='mypassword',
                                                first_name='first_name',
-                                               last_name='last_name',
-                                               region='Togliatti')
+                                               last_name='last_name')
         category = Category.objects.create(name = "animals")
         Advertisement.objects.create(author=custom_user,
                                      category=category,
@@ -67,5 +66,5 @@ class AdvertisementModelTest(TestCase):
     def test_get_absolute_url(self):
         ad_item = Advertisement.objects.get(id=1)
         expected_url = f'{ad_item.get_absolute_url()}'
-        self.assertEqual(expected_url, "/bulletin_board/1")
+        self.assertEqual(expected_url, "/1")
 

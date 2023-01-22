@@ -8,7 +8,7 @@ class IndexViewTest(TestCase):
     def setUp(self):
         Category.objects.create(name='Animals')
     def test_index_view_url(self):
-        response = self.client.get('/bulletin_board/')
+        response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
     def test_index_view_url_by_name(self):

@@ -9,9 +9,7 @@ class CustomUserTest(TestCase):
                                 email='myemail@crazymail.com',
                                 password='mypassword',
                                 first_name='first_name',
-                                last_name='last_name',
-                                region='Togliatti')
-
+                                last_name='last_name')
     def test_username(self):
         user_item = CustomUser.objects.get(id=1)
         expected_data = user_item.username
