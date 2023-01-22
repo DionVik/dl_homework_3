@@ -23,22 +23,28 @@ class IndexView(ListView):
 def get_ad_list(request, category_id=1):
     try:
         category_item = Category.objects.get(id=category_id) #объект категории с id=category_id
+        print(f'category_item={category_item}')
         ad_list = Advertisement.objects.filter(category=category_item).order_by('publication_date')
+        print(f'ad_list={ad_list}')
         if request.user.is_authenticated:
             region = request.user.region
         else:
-            region = 'All'
+             region = None
+        print(f'request.GET={request.GET}')
+        print (f'region={region}')
+        choice_data={}
         if request.GET.get('sort_type_choice'):
-            print(f'We have GET request with form: {request.GET}')
             filter_form = FilterForm(request.GET)
+            print(f'filter_form full by get reguest ')
             if filter_form.is_valid():
+                print("filter_form is valid")
                 sort_type = filter_form.cleaned_data['sort_type_choice'] #выбранный тип сортировки
                 max_price = filter_form.cleaned_data['max_price_choice'] #выбранная макс.цена
                 region = filter_form.cleaned_data['region_choice']  #выбранный регион
                 ad_list = ad_list.filter(price__lte=max_price)  # не больше макс.цены
                 if region != 'All':  #если не по всем регионам
                     region_object = Region.objects.get(name=region)
-                    print(f'id={region_object.id}')
+                    print(f'region name={region_object.name}')
                     ad_list = ad_list.filter(author__region=region_object) #выдать объявления в регионе
                 if sort_type == 'date':
                     ad_list = ad_list.order_by('publication_date')
@@ -49,31 +55,35 @@ def get_ad_list(request, category_id=1):
             else:
                 print ("filter_form is not valid")
         else:
-            if region != 'All':  # если не по всем регионам
+            print('No GET request')
+            if region:  # если не по всем регионам
                 ad_list = ad_list.filter(author__region=region)  # выдать объявления в регионе
             else:
                 ad_list = Advertisement.objects.filter(category=category_item).order_by('publication_date')
             choice_data = {'sort_type_choice': 'date', 'max_price_choice': 10000000, 'region_choice': region}
             filter_form = FilterForm(choice_data)
-            page = request.GET.get('page', 1)
-            paginator = Paginator(ad_list, 3)
-            try:
-                ads = paginator.page(page)
-            except PageNotAnInteger:
-                ads = paginator.page(1)
-            except EmptyPage:
-                ads = paginator.page(paginator.num_pages)
-            context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ads,  'region': region}
+            #====Pagination=====
+            # page = request.GET.get('page', 1)
+            # paginator = Paginator(ad_list, 3)
+            # try:
+            #     ads = paginator.page(page)
+            # except PageNotAnInteger:
+            #     ads = paginator.page(1)
+            # except EmptyPage:
+            #     ads = paginator.page(paginator.num_pages)
+            context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list,  'region': region}
             return render(request, 'category.html', context)
-        page = request.GET.get('page', 1)
-        paginator = Paginator(ad_list, 3)
-        try:
-            ads = paginator.page(page)
-        except PageNotAnInteger:
-            ads = paginator.page(1)
-        except EmptyPage:
-            ads = paginator.page(paginator.num_pages)
-        context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ads, 'region': region}
+
+        #====Pagination====
+        # page = request.GET.get('page', 1)
+        # paginator = Paginator(ad_list, 3)
+        # try:
+        #     ads = paginator.page(page)
+        # except PageNotAnInteger:
+        #     ads = paginator.page(1)
+        # except EmptyPage:
+        #     ads = paginator.page(paginator.num_pages)
+        context = {'filter_form': filter_form, 'category_item': category_item, 'ad_list': ad_list, 'region': region}
     except Category.DoesNotExist:
         raise Http404(f'Category {category_id} does not exist')
 
@@ -108,6 +118,7 @@ class AdEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = 'ad_edit.html'
     fields = ['category', 'title', 'content', 'picture', 'price']
 
+    # Проверка, что пользователь - владелец объявления
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user

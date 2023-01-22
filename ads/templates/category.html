@@ -39,7 +39,8 @@
   <p>No advertisments</p>
   {% endif %}
 
-{% if ad_list.has_other_pages %}
+<!--====Pagination====-->
+<!--{% if ad_list.has_other_pages %}
 <ul class="pagination">
     {% if ad_list.has_previous %}
         <li><a href="?page={{ ad_list.previous_page_number }}">previous page</a></li>
@@ -59,7 +60,7 @@
         <li class="disabled">previous page</li>
     {% endif %}
 </ul>
-{% endif %}
+{% endif %}-->
 
 <p><a class="button" href="{% url 'index' %}">Back to categories</a></p>
 {%endblock content%}
