@@ -40,10 +40,10 @@
   {% endif %}
 
 <!--====Pagination====-->
-<!--{% if ad_list.has_other_pages %}
+{% if ad_list.has_other_pages %}
 <ul class="pagination">
     {% if ad_list.has_previous %}
-        <li><a href="?page={{ ad_list.previous_page_number }}">previous page</a></li>
+        <li><a href="?page={{ ad_list.previous_page_number }}{{request_string}}">previous page</a></li>
     {% else %}
         <li class="disabled">previous page</li>
     {% endif %}
@@ -51,16 +51,16 @@
         {% if ad_list.number == item_page %}
             <li class="active">{{ item_page }}</li>
         {% else %}
-            <li><a href="?page={{ item_page }}">{{ item_page }}</a></li>
+            <li><a href="?page={{ item_page }}{{request_string}}">{{ item_page }}</a></li>
         {% endif %}
     {% endfor %}
     {% if ad_list.has_next %}
-        <li><a href="?page={{ ad_list.next_page_number }}">next page</a></li>
+        <li><a href="?page={{ ad_list.next_page_number }}{{request_string}}">next page</a></li>
     {% else %}
         <li class="disabled">previous page</li>
     {% endif %}
 </ul>
-{% endif %}-->
+{% endif %}
 
 <p><a class="button" href="{% url 'index' %}">Back to categories</a></p>
 {%endblock content%}
