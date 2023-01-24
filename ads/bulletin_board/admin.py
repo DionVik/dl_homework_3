@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import Category, Advertisement
 
-# class AdvertisementInLine(admin.TabularInline):
-#     model = Advertisement
-#     fields = [ 'category', 'title', 'publication_date','content', 'picture', 'price']
-#     readonly_fields = ['publication_date']
-#     extra = 0
+class AdvertisementInLine(admin.TabularInline):
+    model = Advertisement
+    fields = [ 'category', 'title', 'publication_date','content', 'picture', 'price']
+    readonly_fields = ['publication_date']
+    extra = 0
 
 class AdvertisementAdmin(admin.ModelAdmin):
     fieldsets = [
