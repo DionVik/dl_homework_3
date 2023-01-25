@@ -7,6 +7,10 @@ from accounts.models import CustomUser
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name of category")
+    class Meta:
+        ordering = ('name',)
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return f'{self.name}'
